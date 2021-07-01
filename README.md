@@ -1,6 +1,6 @@
 # Misa System
 
-Display used ram and cpu on macOS taskbar.
+Display used RAM and CPU on macOS taskbar.
 
 <div align="center">
   <img src="./docs/screen-shot.png" />
