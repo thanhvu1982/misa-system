@@ -17,7 +17,6 @@
   "buildResources": "assets",
   "output": "dist",
   "files": [
-    "**/*",
     "assets/*"
   ],
   "build": {
