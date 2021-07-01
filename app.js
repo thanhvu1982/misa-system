@@ -1,4 +1,4 @@
-const { app, Tray } = require("electron");
+const { app, Menu, Tray } = require("electron");
 const path = require("path");
 
 let ram, cpu;
@@ -14,11 +14,19 @@ const getCpu = () => {
   return ` ${cpuUsage < 100 ? cpuUsage : 100}%`;
 };
 
+app.dock.hide();
+
+const contextMenu = Menu.buildFromTemplate([
+  { label: "Quit", click: () => app.quit() },
+]);
+
 app
   .whenReady()
   .then(() => {
     ram = new Tray(path.join(__dirname, "assets", "ram.png"));
     cpu = new Tray(path.join(__dirname, "assets", "cpu.png"));
+    ram.setContextMenu(contextMenu);
+    cpu.setContextMenu(contextMenu);
 
     ram.setTitle(" 0.0%");
     cpu.setTitle(" 0.0%");
