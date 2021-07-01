@@ -6,12 +6,12 @@ let ram, cpu;
 const getRam = () => {
   const { total, free } = process.getSystemMemoryInfo();
   const usagePercentage = (((total - free) / total) * 100).toFixed(1);
-  return ` ${usagePercentage}%`;
+  return ` ${usagePercentage < 100 ? usagePercentage : 100}%`;
 };
 
 const getCpu = () => {
   const cpuUsage = (process.getCPUUsage().percentCPUUsage * 100).toFixed(1);
-  return ` ${cpuUsage}%`;
+  return ` ${cpuUsage < 100 ? cpuUsage : 100}%`;
 };
 
 app
