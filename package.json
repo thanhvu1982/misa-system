@@ -3,30 +3,36 @@
   "productName": "Misa System",
   "version": "1.0.0",
   "description": "Display ram and cpu on taskbar macOS",
-  "main": "app.js",
+  "main": "dist/app.js",
   "author": "Thanh Vu <misa198>",
   "license": "MIT",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder --dir"
+    "build:ts": "tsc && cp -r src/static dist/static",
+    "build:eb": "electron-builder --dir",
+    "build": "yarn build:ts && yarn build:eb"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "@typescript-eslint/parser": "^4.28.1",
     "electron": "^13.1.4",
-    "electron-builder": "^22.11.7"
+    "electron-builder": "^22.11.7",
+    "eslint": "^7.29.0",
+    "typescript": "^4.3.5"
   },
-  "buildResources": "assets",
-  "output": "dist",
   "files": [
-    "assets/*"
+    "assets/*",
+    "dist/static/*"
   ],
   "build": {
     "appId": "com.misa198.misa_system",
+    "directories": {
+      "buildResources": "assets",
+      "output": "app"
+    },
     "mac": {
       "category": "public.app-category.productivity",
       "icon": "assets/icon.png"
     }
-  },
-  "dependencies": {
-    "path": "^0.12.7"
   }
 }

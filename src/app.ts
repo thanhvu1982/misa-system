@@ -1,17 +1,16 @@
-const { app, Menu, Tray } = require("electron");
-const path = require("path");
+import { app, Menu, Tray } from "electron";
 
-let ram, cpu;
+let ram: Tray, cpu: Tray;
 
 const getRam = () => {
   const { total, free } = process.getSystemMemoryInfo();
-  const usagePercentage = (((total - free) / total) * 100).toFixed(1);
-  return ` ${usagePercentage < 100 ? usagePercentage : 100}%`;
+  const usagePercentage = ((total - free) / total) * 100;
+  return ` ${usagePercentage < 100 ? usagePercentage.toFixed(1) : 100}%`;
 };
 
 const getCpu = () => {
-  const cpuUsage = (process.getCPUUsage().percentCPUUsage * 100).toFixed(1);
-  return ` ${cpuUsage < 100 ? cpuUsage : 100}%`;
+  const cpuUsage = process.getCPUUsage().percentCPUUsage * 100;
+  return ` ${cpuUsage < 100 ? cpuUsage.toFixed(1) : 100}%`;
 };
 
 app.dock.hide();
@@ -23,8 +22,9 @@ const contextMenu = Menu.buildFromTemplate([
 app
   .whenReady()
   .then(() => {
-    ram = new Tray(path.join(__dirname, "assets", "ram.png"));
-    cpu = new Tray(path.join(__dirname, "assets", "cpu.png"));
+    ram = new Tray(`${__dirname}/static/ram.png`);
+    cpu = new Tray(`${__dirname}/static/cpu.png`);
+
     ram.setContextMenu(contextMenu);
     cpu.setContextMenu(contextMenu);
 
